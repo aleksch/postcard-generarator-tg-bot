@@ -1,7 +1,7 @@
 const { Scenes: { BaseScene }, Markup } = require('telegraf')
 const { prepareImage } = require('../../image-service')
 const MESSAGES = require('../../texts.json')
-const { keyboard } = require('./keyboard')
+const { keyboard, completeKeyboard } = require('./keyboard')
 const { buttons } = require('./keyboard-buttons')
 
 const textScene = new BaseScene('text')
@@ -11,7 +11,9 @@ function getTextPositionNameByText(text) {
 }
 
 const TEXT_POSITION_REG_EXP = new RegExp(
-  `(${Object.values(buttons).filter(name => name !== buttons.back).map(name => name).join('|')})`
+  `(${Object.values(buttons)
+    .filter(name => name !== buttons.back && name !== buttons.repeat)
+    .map(name => name).join('|')})`
 )
 
 textScene.enter(async (ctx) => {
@@ -34,10 +36,16 @@ textScene.hears(TEXT_POSITION_REG_EXP, async (ctx) => {
   await ctx.replyWithPhoto(
     { source : data },
     {
-      caption: "Получилось вот так",
+      caption: "Готово!",
+      reply_markup: {
+        keyboard: completeKeyboard,
+        one_time_keyboard: true,
+      }
     }
   )
+})
 
+textScene.hears(buttons.repeat, async (ctx) => {
   return await ctx.scene.enter('start')
 })
 

@@ -5,4 +5,6 @@ const keyboard = [
   [buttons.back]
 ]
 
-module.exports = { keyboard }
+const completeKeyboard = [[buttons.repeat]]
+
+module.exports = { keyboard, completeKeyboard }

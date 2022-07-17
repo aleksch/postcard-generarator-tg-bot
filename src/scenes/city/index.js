@@ -32,7 +32,7 @@ cityScene.hears(CITIES_REG_EXP, async ctx => {
   await ctx.replyWithPhoto(
     { source : pathToCityImage },
     {
-      caption: "Это будет обложка для нашей открытки, далее давайте выберем эффекты для нашей открытки",
+      caption: "Это будет обложка для нашей открытки",
     }
   )
   ctx.session.generateImage = {
