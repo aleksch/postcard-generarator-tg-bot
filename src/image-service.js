@@ -1,10 +1,5 @@
 const { createCanvas, loadImage } = require('canvas')
 
-// type Args = {
-//   pathToCityImage: string | null,
-//   effectName: 'strict' | 'refined' | 'cool' | null,
-//   textPosition: 'top' | 'center' | 'bottom' | null,
-// }
 const canvas = createCanvas(1920, 1080)
 const ctx = canvas.getContext('2d')
 

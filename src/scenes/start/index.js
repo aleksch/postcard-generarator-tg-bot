@@ -1,11 +1,20 @@
 const { Scenes: { BaseScene }, Markup } = require('telegraf')
 const MESSAGES = require('../../texts.json')
-const { keyboard } = require('./keyboard')
+const { keyboard, adminKeyboard } = require('./keyboard')
 const { buttons } = require('./keyboard-buttons')
+
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME
 
 const startScene = new BaseScene('start')
 
 startScene.enter(async (ctx) => {
+  if(ctx.message.from.username === ADMIN_USERNAME){
+    return await ctx.reply(
+        MESSAGES.welcome,
+        Markup.keyboard(adminKeyboard).oneTime()
+    )
+  }
+
   await ctx.reply(
     MESSAGES.welcome,
     Markup.keyboard(keyboard).oneTime()
@@ -33,6 +42,12 @@ startScene.hears(buttons.getReady, async (ctx) => {
       }
     },
   )
+})
+
+startScene.hears(buttons.analytics, async (ctx)=>{
+  if(ctx.message.from.username === ADMIN_USERNAME){
+    return ctx.scene.enter('analytics')
+  }
 })
 
 module.exports = { startScene }
