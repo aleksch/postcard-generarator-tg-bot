@@ -7,13 +7,10 @@
     "start": "node ./src/index.js"
   },
   "dependencies": {
-    "@types/node": "^18.0.4",
     "canvas": "^2.9.3",
     "dotenv": "^16.0.1",
     "nodemon": "^2.0.19",
+    "sqlite3": "^5.0.9",
     "telegraf": "^4.8.5"
-  },
-  "devDependencies": {
-    "tsconfig.json": "^1.0.11"
   }
 }
