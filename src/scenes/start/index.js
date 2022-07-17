@@ -6,12 +6,18 @@ const { buttons } = require('./keyboard-buttons')
 const startScene = new BaseScene('start')
 
 startScene.enter(async (ctx) => {
-  await ctx.replyWithHTML(
+  const { isNotFirstInit } = ctx.session
+  const text = isNotFirstInit
+    ? 'Попробуем снова'
+    :
 `Привет! Если ты попал сюда — значит, ищешь, чем бы таким удивить всех родственников и знакомых в вотсапе на <s>очередной ДеНьДнЯ</s> день их маленького города и праздник всех металлургов.
 
 Три шага, которые отделяют тебя от НЕЁ — самой нетривиальной, завораживающей и исключительно твоей собственной пикчи:
 
-Выбери фон, определись со стилем и наконец — расположи надпись.`,
+Выбери фон, определись со стилем и наконец — расположи надпись.`
+
+  await ctx.replyWithHTML(
+    text,
     Markup.keyboard(keyboard).oneTime()
   )
 })

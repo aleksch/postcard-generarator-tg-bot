@@ -46,6 +46,7 @@ textScene.hears(TEXT_POSITION_REG_EXP, async (ctx) => {
 })
 
 textScene.hears(buttons.repeat, async (ctx) => {
+  ctx.session.isNotFirstInit = true
   return await ctx.scene.enter('start')
 })
 
